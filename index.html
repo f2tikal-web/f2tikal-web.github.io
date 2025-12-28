@@ -346,12 +346,7 @@
       alt="background druplicon"
       class="support-bg-druplicon"
     /> -->
-    <div class="laptop-container">
-      <!-- merged image -->
-      <!-- <img src="${ASSET_PATH}/2_518.svg" alt="laptop screen background" />
-      <img src="${ASSET_PATH}/2_520.svg" alt="laptop screen content" /> -->
-      <img src="laptop.png" alt="laptop base" />
-    </div>
+    
   </div>
   <div class="container">
     <h2 class="support-title">Поддержка от Drupal-coder</h2>
@@ -472,18 +467,24 @@
       </div>
     </div>
     <div class="expertise-section">
-      <h2>Экспертиза в Drupal, опыт 14 лет!</h2>
-      <div class="expertise-points">
-        <div class="expertise-point">
-          <div class="expertise-line"></div>
-          <p>
-            Только системный подход – контроль версий, резервирование и
-            тестирование!
-          </p>
-        </div>
-        <div class="expertise-point">
-          <div class="expertise-line"></div>
-          <p>Только Drupal сайты, не берем на поддержку сайты на других CMS!</p>
+      <!-- Добавляем ноутбук внутрь expertise-section -->
+      <div class="expertise-laptop">
+        <img src="laptop.png" alt="laptop base" />
+      </div>
+      <div class="expertise-content">
+        <h2>Экспертиза в Drupal, опыт 14 лет!</h2>
+        <div class="expertise-points-horizontal">
+          <div class="expertise-point">
+            <div class="expertise-line"></div>
+            <p>
+              Только системный подход – контроль версий, резервирование и
+              тестирование!
+            </p>
+          </div>
+          <div class="expertise-point">
+            <div class="expertise-line"></div>
+            <p>Только Drupal сайты, не берем на поддержку сайты на других CMS!</p>
+          </div>
         </div>
       </div>
     </div>
@@ -829,26 +830,50 @@
     <div class="testimonial-slider">
       <div class="testimonial-card-bg-1"></div>
       <div class="testimonial-card-bg-2"></div>
+      
+      <!-- Контейнер для слайдов -->
+      <div class="testimonial-slides">
+        <!-- Слайд 1 -->
+        <div class="testimonial-slide active" data-index="0">
+          <div class="testimonial-content">
+            <img src="v2_373.png" alt="Winamp Logo" class="testimonial-logo" />
+            <h3>Команда Drupal Coder вызвала только положительные впечатления!</h3>
+            <p>Нуреев Александр, менеджер проекта Winamp Russian Community</p>
+          </div>
+        </div>
+        
+        <!-- Слайд 2 -->
+        <div class="testimonial-slide" data-index="1">
+          <div class="testimonial-content">
+            <img src="v2_373.png" alt="Logo 2" class="testimonial-logo" />
+            <h3>Отличная работа! Быстро и качественно.</h3>
+            <p>Иванов Иван, директор компании "Пример"</p>
+          </div>
+        </div>
+        
+        <!-- Слайд 3 -->
+        <div class="testimonial-slide" data-index="2">
+          <div class="testimonial-content">
+            <img src="v2_373.png" alt="Logo 3" class="testimonial-logo" />
+            <h3>Профессионалы своего дела! Рекомендую!</h3>
+            <p>Петрова Мария, CEO компании "ТехноЛогик"</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Карточка с контентом и навигацией (единая для всех слайдов) -->
       <div class="testimonial-card">
-        <div class="testimonial-content">
-          <img
-            src="v2_373.png"
-            alt="Winamp Logo"
-            class="testimonial-logo"
-          />
-          <h3>
-            Команда Drupal Coder вызвала только положительные впечатления!
-          </h3>
-          <p>Нуреев Александр, менеджер проекта Winamp Russian Community</p>
+        <div class="testimonial-card-content">
+          <!-- Здесь будет динамически меняться контент из активного слайда -->
         </div>
         <div class="testimonial-divider"></div>
         <div class="testimonial-nav">
-          <button class="nav-arrow">
-            <img src="arrow-left.svg" alt="arrow left" />
+          <button class="nav-arrow prev">
+            <img src="arrow-left.svg" alt="Предыдущий отзыв" />
           </button>
-          <span>01 / 14</span>
-          <button class="nav-arrow">
-            <img src="arrow-right.svg" alt="arrow right" />
+          <span class="slide-counter">01 / 03</span>
+          <button class="nav-arrow next">
+            <img src="arrow-right.svg" alt="Следующий отзыв" />
           </button>
         </div>
       </div>
@@ -1093,6 +1118,7 @@
   </div>
 </footer>
 <script src="form_scr1.js"></script>
+<script src="testimonial_js.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   // Элементы для мобильного меню
@@ -1102,6 +1128,13 @@ document.addEventListener('DOMContentLoaded', function() {
   const mobileLangSwitcher = document.querySelector('.mobile-lang-switcher');
   const mobileLangCurrent = document.querySelector('.mobile-lang-current');
   
+  // Функция для закрытия мобильного меню
+  function closeMobileMenu() {
+    mobileMenu.classList.remove('active');
+    hamburger.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+  
   // Открытие/закрытие мобильного меню
   hamburger.addEventListener('click', function() {
     mobileMenu.classList.add('active');
@@ -1109,27 +1142,19 @@ document.addEventListener('DOMContentLoaded', function() {
     document.body.style.overflow = 'hidden';
   });
   
-  mobileMenuClose.addEventListener('click', function() {
-    mobileMenu.classList.remove('active');
-    hamburger.classList.remove('active');
-    document.body.style.overflow = '';
-  });
+  mobileMenuClose.addEventListener('click', closeMobileMenu);
   
   // Закрытие меню при клике вне его
   mobileMenu.addEventListener('click', function(e) {
     if (e.target === mobileMenu) {
-      mobileMenu.classList.remove('active');
-      hamburger.classList.remove('active');
-      document.body.style.overflow = '';
+      closeMobileMenu();
     }
   });
   
   // Закрытие меню при нажатии Esc
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') {
-      mobileMenu.classList.remove('active');
-      hamburger.classList.remove('active');
-      document.body.style.overflow = '';
+      closeMobileMenu();
     }
   });
   
@@ -1137,6 +1162,48 @@ document.addEventListener('DOMContentLoaded', function() {
   mobileLangCurrent.addEventListener('click', function() {
     mobileLangSwitcher.classList.toggle('active');
   });
+  
+  // ЗАКРЫТИЕ МЕНЮ ПРИ КЛИКЕ НА НАВИГАЦИОННЫЕ ССЫЛКИ
+  // Находим все ссылки в мобильном меню
+  const mobileNavLinks = document.querySelectorAll('.mobile-nav a');
+  
+  // Добавляем обработчик для каждой ссылки
+  mobileNavLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+      // Закрываем меню
+      closeMobileMenu();
+      
+      // Дополнительно: закрываем языковое меню, если оно открыто
+      mobileLangSwitcher.classList.remove('active');
+      
+      // Обработка якорных ссылок (прокрутка происходит автоматически)
+      // Можно добавить небольшую задержку для плавного закрытия меню перед скроллом
+      const href = this.getAttribute('href');
+      
+      // Если ссылка ведет на якорь на этой же странице
+      if (href.startsWith('#')) {
+        // Добавляем небольшую задержку для плавного закрытия меню
+        setTimeout(() => {
+          const targetId = href.substring(1);
+          const targetElement = document.getElementById(targetId);
+          
+          if (targetElement) {
+            // Плавная прокрутка к элементу
+            targetElement.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }
+        }, 300); // Задержка для закрытия меню перед скроллом
+      }
+    });
+  });
+  
+  // Также добавляем обработчик для ссылки телефона (если нужно)
+  const mobilePhoneLink = document.querySelector('.mobile-phone-number');
+  if (mobilePhoneLink) {
+    mobilePhoneLink.addEventListener('click', closeMobileMenu);
+  }
   
   // Выбор языка (для всех меню)
   const langLinks = document.querySelectorAll('.lang-dropdown a, .mobile-lang-dropdown a');
@@ -1164,9 +1231,7 @@ document.addEventListener('DOMContentLoaded', function() {
       
       // Закрываем выпадающие меню
       mobileLangSwitcher.classList.remove('active');
-      mobileMenu.classList.remove('active');
-      hamburger.classList.remove('active');
-      document.body.style.overflow = '';
+      closeMobileMenu(); // Используем общую функцию
       
       // Здесь можно добавить логику смены языка на сайте
       console.log('Выбран язык:', lang);

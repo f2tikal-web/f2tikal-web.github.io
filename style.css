@@ -111,6 +111,12 @@ img {
   padding-bottom: 60px;
   position: relative;
   overflow: hidden;
+  width: 100%;
+}
+
+/* Добавляем для высоты на десктопе */
+.header-section {
+  min-height: 100vh; /* На десктопе тоже делаем на весь экран */
 }
 
 .header-bg {
@@ -171,6 +177,7 @@ img {
   padding-bottom: 30px;
   position: relative;
   z-index: 10;
+  width: 100%;
 }
 
 /* Гамбургер меню (скрыто на десктопе) */
@@ -255,7 +262,7 @@ img {
   position: absolute;
   top: 100%;
   right: 0;
-  background-color: var(--color-primary); /* Оранжевый фон */
+  background-color: var(--color-primary);
   border-radius: 5px;
   padding: 10px 0;
   min-width: 150px;
@@ -280,7 +287,7 @@ img {
 .lang-dropdown a {
   display: block;
   padding: 10px 20px;
-  color: var(--color-white); /* Белый текст */
+  color: var(--color-white);
   text-decoration: none;
   font-size: 14px;
   transition: background-color 0.3s;
@@ -297,11 +304,14 @@ img {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.9);
+  background-color: rgba(0, 0, 0, 0.7); /* Более темный фон для лучшего контраста */
   z-index: 9999;
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.3s, visibility 0.3s;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end; /* Прижимаем меню к низу */
 }
 
 .mobile-menu-overlay.active {
@@ -310,27 +320,35 @@ img {
 }
 
 .mobile-menu-container {
-  position: absolute;
-  top: 0;
+  position: fixed; /* Фиксированная позиция внизу */
+  bottom: 0;
   left: 0;
   width: 100%;
-  height: 100%;
   background-color: #000;
   padding: 20px;
   overflow-y: auto;
+  border-radius: 20px 20px 0 0; /* Закругленные углы сверху */
+  transform: translateY(100%); /* Изначально скрыто внизу */
+  transition: transform 0.3s ease;
+  max-height: 85vh; /* Ограничиваем высоту до 85% экрана */
+  box-shadow: 0 -5px 25px rgba(0, 0, 0, 0.3); /* Тень сверху */
+}
+
+.mobile-menu-overlay.active .mobile-menu-container {
+  transform: translateY(0); /* Показываем меню */
 }
 
 .mobile-menu-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-bottom: 20px;
+  padding-bottom: 15px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
 .mobile-menu-title {
-  font-size: 24px;
+  font-size: 20px; /* Уменьшаем размер шрифта */
   font-weight: 700;
   color: var(--color-white);
   margin: 0;
@@ -340,7 +358,7 @@ img {
   background: none;
   border: none;
   color: var(--color-white);
-  font-size: 32px;
+  font-size: 28px; /* Уменьшаем размер крестика */
   cursor: pointer;
   padding: 0;
   width: 40px;
@@ -354,11 +372,11 @@ img {
 .mobile-nav ul {
   list-style: none;
   padding: 0;
-  margin: 0 0 30px 0;
+  margin: 0 0 20px 0;
 }
 
 .mobile-nav li {
-  margin-bottom: 15px;
+  margin-bottom: 12px;
 }
 
 .mobile-nav a {
@@ -377,7 +395,7 @@ img {
 
 /* Мобильный языковой переключатель */
 .mobile-lang-switcher {
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   position: relative;
 }
 
@@ -387,7 +405,7 @@ img {
   align-items: center;
   padding: 15px;
   background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 5px;
+  border-radius: 10px;
   cursor: pointer;
   color: var(--color-white);
   font-size: 16px;
@@ -398,14 +416,15 @@ img {
   top: 100%;
   left: 0;
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.9);
-  border-radius: 0 0 5px 5px;
+  background-color: rgba(0, 0, 0, 0.95);
+  border-radius: 0 0 10px 10px;
   padding: 10px 0;
   opacity: 0;
   visibility: hidden;
   transform: translateY(-10px);
   transition: all 0.3s ease;
   z-index: 100;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 .mobile-lang-switcher.active .mobile-lang-dropdown {
@@ -433,21 +452,91 @@ img {
 
 /* Контакты в мобильном меню */
 .mobile-contact {
-  margin-top: 30px;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .mobile-phone-number {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 15px;
   color: var(--color-white);
-  font-size: 18px;
+  font-size: 20px; /* Увеличиваем размер телефона */
   text-decoration: none;
+  font-weight: 600;
+  padding: 15px;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  transition: background-color 0.3s;
+}
+
+.mobile-phone-number:hover {
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .mobile-phone-number img {
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
+}
+
+/* Для планшетов (можно оставить как есть или немного подкорректировать) */
+@media (max-width: 768px) {
+  .mobile-menu-container {
+    padding: 25px; /* Немного больше отступов на планшетах */
+  }
+  
+  .mobile-menu-title {
+    font-size: 22px;
+  }
+}
+
+/* Для небольших смартфонов */
+@media (max-width: 480px) {
+  .mobile-menu-container {
+    padding: 20px;
+    max-height: 90vh; /* Увеличиваем высоту на маленьких экранах */
+  }
+  
+  .mobile-menu-title {
+    font-size: 18px;
+  }
+  
+  .mobile-nav a {
+    font-size: 16px;
+  }
+  
+  .mobile-phone-number {
+    font-size: 18px;
+  }
+}
+
+/* Для очень высоких меню добавляем возможность прокрутки */
+.mobile-menu-container::-webkit-scrollbar {
+  width: 4px;
+}
+
+.mobile-menu-container::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+}
+
+.mobile-menu-container::-webkit-scrollbar-thumb {
+  background: var(--color-primary);
+  border-radius: 2px;
+}
+
+/* Индикатор для "свайпа" вниз (опционально) */
+.mobile-menu-container::before {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 4px;
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
 }
 
 /* Контент героя */
@@ -458,6 +547,7 @@ img {
   align-items: flex-start;
   margin-top: 100px;
   gap: 60px;
+  flex: 1; /* Добавляем для заполнения оставшегося пространства */
 }
 
 .hero-text {
@@ -530,7 +620,16 @@ img {
   height: 58px;
 }
 
-/* Медиазапросы для адаптивности */
+/* ОБНОВЛЕННЫЕ МЕДИАЗАПРОСЫ */
+
+@media (max-width: 1200px) {
+  .header-bg-druplicon {
+    right: 600px;
+    width: 700px;
+    height: 750px;
+  }
+}
+
 @media (max-width: 992px) {
   .main-nav {
     display: none;
@@ -543,6 +642,7 @@ img {
   .hero-content {
     flex-direction: column;
     gap: 40px;
+    margin-top: 40px;
   }
   
   .hero-text {
@@ -564,12 +664,67 @@ img {
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(2, auto);
   }
+  
+  .header-bg-druplicon {
+    right: 400px;
+    width: 600px;
+    height: 650px;
+  }
 }
 
 @media (max-width: 768px) {
+  /* Исправляем ширину и высоту header на мобильных */
+  .header-section {
+    padding-left: 0;
+    padding-right: 0;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%); /* Растягиваем на всю ширину экрана */
+    margin-right: calc(-50vw + 50%);
+    left: 0;
+    position: relative;
+    min-height: 100vh; /* Вся высота экрана */
+    min-height: 100dvh; /* Динамическая высота для мобильных браузеров */
+    height: 100vh;
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 40px;
+  }
+  
+  .header-section .container {
+    padding-left: 20px;
+    padding-right: 20px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    flex: 1; /* Контейнер занимает все доступное пространство */
+  }
+  
+  /* Распределение пространства внутри header */
+  .site-header {
+    flex-shrink: 0; /* Шапка не сжимается */
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+  
+  .hero-content {
+    flex: 1; /* Занимает все оставшееся пространство */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Центрируем контент по вертикали */
+    margin-top: 0;
+    gap: 30px;
+    overflow-y: auto; /* Добавляем прокрутку если контент не помещается */
+    -webkit-overflow-scrolling: touch; /* Плавная прокрутка на iOS */
+  }
+  
   .hero-stats {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr) !important; /* Всегда 2 колонки на мобильных */
     grid-template-rows: repeat(3, auto);
+    gap: 25px;
+    flex-shrink: 0; /* Статистика не сжимается */
   }
   
   .header-contact .phone-number {
@@ -578,6 +733,12 @@ img {
   
   .hero-text h1 {
     font-size: 36px;
+    margin-bottom: 15px;
+  }
+  
+  .hero-text p {
+    font-size: 16px;
+    margin-bottom: 25px;
   }
   
   .mobile-menu-title {
@@ -587,28 +748,139 @@ img {
   .mobile-nav a {
     font-size: 16px;
   }
+  
+  .header-bg-druplicon {
+    right: 200px;
+    width: 500px;
+    height: 550px;
+  }
+  
+  /* Уменьшаем кнопку на мобильных */
+  .hero-btn {
+    width: 100%;
+    max-width: 280px;
+  }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 576px) {
+  /* Для самых маленьких экранов */
+  .header-section {
+    min-height: 100vh;
+    min-height: 100dvh;
+    height: 100vh;
+    height: 100dvh;
+  }
+  
+  .hero-stats {
+    grid-template-columns: repeat(2, 1fr) !important; /* Сохраняем 2 колонки */
+    gap: 20px;
+  }
+  
+  .stat-item {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  
+  .stat-line {
+    width: 100%;
+    height: 3px;
+    min-height: 3px;
+    margin-bottom: 5px;
+  }
+  
+  .stat-content {
+    font-size: 13px;
+  }
+  
+  .stat-content strong,
+  .stat-main-title {
+    font-size: 20px;
+  }
+  
   .hero-text h1 {
     font-size: 32px;
+    line-height: 1.2;
   }
   
   .hero-text p {
     font-size: 16px;
-  }
-  
-  .hero-stats {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto;
+    line-height: 1.4;
   }
   
   .hero-content {
-    margin-top: 60px;
+    gap: 25px;
   }
   
   .mobile-menu-title {
     font-size: 18px;
+  }
+  
+  .header-bg-druplicon {
+    right: 100px;
+    width: 400px;
+    height: 450px;
+  }
+  
+  /* Еще больше уменьшаем шапку на очень маленьких экранах */
+  .site-header {
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+  
+  .logo img {
+    max-height: 30px; /* Уменьшаем логотип */
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-stats {
+    grid-template-columns: repeat(2, 1fr) !important; /* Гарантируем 2 колонки */
+    gap: 15px;
+  }
+  
+  .stat-content {
+    font-size: 12px;
+  }
+  
+  .stat-content strong {
+    font-size: 18px;
+  }
+  
+  .stat-icon {
+    width: 45px;
+    height: 45px;
+  }
+  
+  .hero-text h1 {
+    font-size: 28px;
+  }
+  
+  .hero-text p {
+    font-size: 15px;
+  }
+  
+  .header-bg-druplicon {
+    right: 50px;
+    width: 350px;
+    height: 400px;
+  }
+  
+  /* Уменьшаем отступы внутри hero-content */
+  .hero-content {
+    gap: 20px;
+  }
+}
+
+/* Для очень высоких экранов */
+@media (min-height: 800px) and (max-width: 768px) {
+  .hero-content {
+    justify-content: flex-start;
+    padding-top: 40px;
+  }
+  
+  .hero-stats {
+    margin-top: 20px;
   }
 }
 
@@ -699,19 +971,26 @@ img {
 
 .support-section {
   padding: 100px 0;
+  position: relative;
+  overflow: hidden;
 }
+
 .support-title {
   font-size: 42px;
   font-weight: 700;
   text-align: center;
   margin-bottom: 80px;
 }
+
 .support-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 30px;
-  margin-bottom: 150px;
+  margin-bottom: 0;
+  position: relative;
+  z-index: 2;
 }
+
 .support-card {
   background-color: #fff;
   border-radius: 5px;
@@ -719,33 +998,72 @@ img {
   box-shadow: 0px 20px 40px rgba(5, 12, 51, 0.05);
   position: relative;
   padding-bottom: 60px;
-  z-index: 2;
+  transition: all 0.3s ease; /* Добавляем плавный переход для анимации */
+  overflow: hidden; /* Для анимации выезжающих элементов */
+  cursor: pointer; /* Делаем курсор pointer при наведении */
 }
+
+/* Анимация при наведении на карточку */
+.support-card:hover {
+  transform: translateY(-10px); /* Поднимаем карточку вверх */
+  box-shadow: 0px 30px 60px rgba(5, 12, 51, 0.15); /* Усиливаем тень */
+  transition: all 0.3s ease;
+}
+
+/* Дополнительный эффект - выезжающая линия сверху */
+.support-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 3px;
+  background-color: var(--color-primary);
+  transition: width 0.3s ease;
+  z-index: 3;
+}
+
+.support-card:hover::before {
+  width: 100%; /* Линия расширяется на всю ширину */
+}
+
 .support-card-header {
   position: relative;
   margin-bottom: 15px;
   z-index: 2;
 }
+
 .support-card-header span {
   font-size: 14px;
   color: var(--color-text-dark-faded);
   opacity: 0.5;
 }
-.left-bod{
-  float: left;
-}
+
 .support-card-header h3 {
   position: relative;
   font-size: 18px;
   font-weight: 700;
   margin-top: 5px;
   z-index: 2;
+  transition: color 0.3s ease; /* Плавное изменение цвета заголовка */
 }
+
+.support-card:hover .support-card-header h3 {
+  color: var(--color-primary); /* Меняем цвет заголовка при наведении */
+}
+
 .support-card p {
   font-size: 16px;
   line-height: 1.5;
   color: var(--color-text-dark-faded);
+  transition: color 0.3s ease; /* Плавное изменение цвета текста */
 }
+
+.support-card:hover p {
+  color: #333; /* Делаем текст темнее при наведении */
+}
+
+/* Иконки - фиксируем в правом нижнем углу */
 .support-card-icon {
   position: absolute;
   bottom: 25px;
@@ -753,7 +1071,35 @@ img {
   width: 48px;
   height: 48px;
   z-index: 1;
+  transition: all 0.3s ease; /* Добавляем анимацию для иконки */
 }
+
+/* Анимация иконки при наведении */
+.support-card:hover .support-card-icon {
+  transform: scale(1.1) rotate(5deg); /* Увеличиваем и немного поворачиваем иконку */
+  filter: brightness(1.1) saturate(1.2); /* Делаем иконку ярче */
+}
+
+/* Альтернативная анимация - выезжающая подложка для иконки */
+.support-card-icon::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background-color: rgba(var(--color-primary-rgb), 0.1);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: all 0.3s ease;
+  z-index: -1;
+}
+
+.support-card:hover .support-card-icon::after {
+  width: 60px;
+  height: 60px;
+}
+
 .support-bg-elements {
   position: absolute;
   top: 0;
@@ -762,6 +1108,7 @@ img {
   height: 100%;
   z-index: -1;
 }
+
 .support-bg-druplicon {
   position: absolute;
   right: 0;
@@ -770,6 +1117,7 @@ img {
   opacity: 0.05;
   width: 923px;
 }
+
 .laptop-container {
   position: absolute;
   left: -50px;
@@ -777,82 +1125,186 @@ img {
   width: 660px;
   height: 522px;
 }
+
 .laptop-container img {
   position: absolute;
   top: 900px;
   left: 0;
 }
+
+
+.support-card-icon {
+  position: absolute;
+  bottom: -15px;
+  right: -15px;
+  width: 48px;
+  height: 48px;
+  margin: 15px;
+  z-index: 1;
+}
+
+.container {
+  position: relative;
+}
+
+/* Стили для expertise-section */
 .expertise-section {
   background-color: var(--color-bg-dark);
   color: var(--color-white);
-  padding: 90px 100px;
+  padding: 120px 100px 180px;
   border-radius: 5px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   position: relative;
-  z-index: 2;
+  z-index: 1;
+  margin-top: -100px;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+  width: 100vw;
+  left: 0;
+  top: 0;
+  min-height: 600px;
+  overflow: visible;
 }
-.expertise-section h2 {
+
+.expertise-laptop {
+  position: absolute;
+  left: -100px;
+  bottom: -150px;
+  width: 660px;
+  height: 522px;
+  z-index: 3;
+}
+
+.expertise-laptop img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.3));
+}
+
+.expertise-content {
+  position: absolute;
+  right: 100px;
+  bottom: 60px;
+  text-align: right;
+  max-width: 600px;
+  z-index: 4;
+}
+
+.expertise-content h2 {
   font-size: 42px;
   font-weight: 700;
-  max-width: 480px;
+  margin-bottom: 40px;
+  line-height: 1.2;
 }
-.expertise-points {
+
+.expertise-points-horizontal {
   display: flex;
-  flex-direction: column;
-  gap: 30px;
+  gap: 60px;
+  justify-content: flex-end;
 }
+
 .expertise-point {
   display: flex;
-  gap: 20px;
-  align-items: flex-start;
+  flex-direction: column;
+  align-items: flex-end;
   max-width: 280px;
 }
+
 .expertise-line {
-  width: 3px;
-  height: 100px;
+  width: 100px;
+  height: 3px;
   background-color: var(--color-primary);
-  flex-shrink: 0;
+  margin-bottom: 15px;
 }
+
 .expertise-point p {
   font-size: 16px;
   opacity: 0.7;
+  text-align: right;
+  line-height: 1.5;
 }
 
 @media (max-width: 1200px) {
   .support-grid {
     grid-template-columns: repeat(2, 1fr);
   }
-  .laptop-container {
-    display: none;
-  }
+  
   .expertise-section {
-    flex-direction: column;
-    text-align: center;
+    padding: 80px 40px 200px;
+    margin-top: -80px;
+    min-height: 500px;
+  }
+  
+  .expertise-laptop {
+    left: -150px;
+    bottom: -120px;
+    width: 500px;
+    height: 400px;
+  }
+  
+  .expertise-content {
+    right: 40px;
+    bottom: 40px;
+    max-width: 450px;
+  }
+  
+  .expertise-content h2 {
+    font-size: 36px;
+  }
+  
+  .expertise-points-horizontal {
     gap: 40px;
-    padding: 60px 40px;
   }
-  .expertise-points {
-    align-items: center;
-  }
+  
   .expertise-point {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-  .expertise-line {
-    height: 3px;
-    width: 100px;
+    max-width: 220px;
   }
 }
+
 @media (max-width: 768px) {
   .support-grid {
     grid-template-columns: 1fr;
   }
-  .support-title,
-  .expertise-section h2 {
-    font-size: 32px;
+  
+  .expertise-section {
+    padding: 60px 20px 80px;
+    margin-top: -60px;
+    min-height: auto;
+  }
+  
+  .expertise-laptop {
+    display: none;
+  }
+  
+  .expertise-content {
+    position: static;
+    text-align: center;
+    max-width: 100%;
+  }
+  
+  .expertise-content h2 {
+    font-size: 28px;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+  
+  .expertise-points-horizontal {
+    flex-direction: column;
+    gap: 30px;
+    align-items: center;
+  }
+  
+  .expertise-point {
+    align-items: center;
+    max-width: 100%;
+  }
+  
+  .expertise-point p {
+    text-align: center;
+  }
+  
+  .expertise-line {
+    width: 60px;
   }
 }
 
@@ -1298,6 +1750,8 @@ img {
 .testimonials-section {
   padding: 100px 0;
   background-color: #f9f9f9;
+  position: relative;
+  overflow: hidden;
 }
 
 .testimonials-title {
@@ -1348,6 +1802,7 @@ img {
   z-index: 0;
 }
 
+/* Основная карточка с контентом и навигацией */
 .testimonial-card {
   position: relative;
   z-index: 2;
@@ -1360,9 +1815,13 @@ img {
   display: flex;
 }
 
-.testimonial-content {
+/* Контейнер для контента (занимает левую часть) */
+.testimonial-card-content {
   padding: 60px;
   flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .testimonial-logo {
@@ -1371,7 +1830,7 @@ img {
   margin-bottom: 40px;
 }
 
-.testimonial-content h3 {
+.testimonial-card-content h3 {
   font-size: 29px;
   font-weight: 700;
   line-height: 1.5;
@@ -1379,7 +1838,7 @@ img {
   max-width: 440px;
 }
 
-.testimonial-content p {
+.testimonial-card-content p {
   font-size: 14px;
   color: var(--color-text-dark-faded);
   opacity: 0.5;
@@ -1393,14 +1852,15 @@ img {
   margin: 60px 0;
 }
 
-/* ОСНОВНОЕ ИЗМЕНЕНИЕ: на десктопе стрелочки слева и справа от цифр */
+/* Навигация (правая часть) - остаемся верными исходному дизайну */
 .testimonial-nav {
   display: flex;
-  flex-direction: row; /* горизонтальное расположение на десктопе */
+  flex-direction: row;
   justify-content: center;
   align-items: center;
-  gap: 40px; /* увеличиваем отступ между стрелочками и цифрами */
+  gap: 40px;
   padding: 0 60px;
+  min-width: 200px;
 }
 
 .nav-arrow {
@@ -1410,6 +1870,12 @@ img {
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 10px;
+  transition: transform 0.3s ease;
+}
+
+.nav-arrow:hover {
+  transform: scale(1.1);
 }
 
 .nav-arrow img {
@@ -1420,7 +1886,9 @@ img {
 .testimonial-nav span {
   font-size: 22px;
   font-weight: 700;
-  order: 2; /* цифры посередине (между стрелочками) */
+  order: 2;
+  min-width: 80px;
+  text-align: center;
 }
 
 /* Левая стрелочка перед цифрами */
@@ -1433,6 +1901,12 @@ img {
   order: 3;
 }
 
+/* Скрываем контейнер со слайдами (он используется только для хранения данных) */
+.testimonial-slides {
+  display: none;
+}
+
+/* Медиазапросы */
 @media (max-width: 1200px) {
   .testimonial-card {
     width: 90%;
@@ -1447,9 +1921,7 @@ img {
     margin: 30px 0;
   }
   
-  /* На планшетах также горизонтальное расположение стрелочек */
   .testimonial-nav {
-    flex-direction: row;
     padding: 30px;
     gap: 40px;
   }
@@ -1461,17 +1933,15 @@ img {
 }
 
 @media (max-width: 768px) {
-  /* НА МОБИЛЬНЫХ: сначала отзыв, потом стрелочки с цифрами */
   .testimonial-card {
     display: flex;
-    flex-direction: column; /* вертикальное расположение */
+    flex-direction: column;
   }
   
-  /* Контент отзыва идет первым */
-  .testimonial-content {
+  .testimonial-card-content {
     padding: 30px;
     text-align: center;
-    order: 1; /* первый в порядке */
+    order: 1;
   }
   
   .testimonial-logo {
@@ -1479,45 +1949,40 @@ img {
     margin-right: auto;
   }
   
-  .testimonial-content h3 {
+  .testimonial-card-content h3 {
     font-size: 24px;
     max-width: 100%;
   }
   
-  .testimonial-content p {
+  .testimonial-card-content p {
     max-width: 100%;
   }
   
-  /* Разделитель между контентом и навигацией */
   .testimonial-divider {
     width: 80%;
     height: 1px;
     margin: 20px auto;
-    order: 2; /* второй в порядке */
+    order: 2;
   }
   
-  /* Навигация (стрелочки с цифрами) идет после контента */
   .testimonial-nav {
-    order: 3; /* третий в порядке */
+    order: 3;
     padding: 20px 30px 30px;
-    flex-direction: row;
     gap: 30px;
   }
   
-  /* Скрываем фон с цитатой на мобильных */
   .testimonial-bg-quote {
     display: none;
   }
 }
 
-/* Для очень маленьких экранов */
 @media (max-width: 480px) {
   .testimonials-title {
     font-size: 32px;
     margin-bottom: 40px;
   }
   
-  .testimonial-content h3 {
+  .testimonial-card-content h3 {
     font-size: 20px;
   }
   
